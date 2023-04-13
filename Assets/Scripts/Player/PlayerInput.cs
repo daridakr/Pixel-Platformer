@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerInput : MonoBehaviour
@@ -10,9 +11,9 @@ public class PlayerInput : MonoBehaviour
         _movement = GetComponent<PlayerMovement>();
     }
 
-    private void Update()
+    public void OnHorizontalMovement(InputAction.CallbackContext context)
     {
-        float horizontalDirection = Input.GetAxisRaw(Axis.Horizontal);
-        _movement.SetDirection(horizontalDirection);
+        var direction = context.ReadValue<float>();
+        _movement.SetDirection(direction);
     }
 }
