@@ -11,9 +11,9 @@ public class PlayerInput : MonoBehaviour
         _movement = GetComponent<PlayerMovement>();
     }
 
-    public void OnHorizontalMovement(InputAction.CallbackContext context)
+    public void OnMovement(InputAction.CallbackContext context)
     {
-        var direction = context.ReadValue<float>();
+        var direction = context.ReadValue<Vector2>();
         _movement.SetDirection(direction);
     }
 }

@@ -4,20 +4,22 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    private float _direction;
+    private Vector2 _direction;
+    private Vector3 _position;
 
-    public void SetDirection(float direction)
+    public void SetDirection(Vector2 direction)
     {
         _direction = direction;
     }
 
     private void Update()
     {
-        if (_direction != 0)
+        _position = transform.position;
+
+        if (_direction.magnitude > 0)
         {
-            float delta = _direction * _speed * Time.deltaTime;
-            float newXPosition = transform.position.x + delta;
-            transform.position = new Vector2(newXPosition, transform.position.y);
+            var delta = _direction * _speed * Time.deltaTime;
+            transform.position = _position + new Vector3(delta.x, delta.y, _position.z);
         }
     }
 }
