@@ -5,8 +5,9 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
-    [SerializeField] private ContactFilter2D _groundCheckFilter;
-    [SerializeField] private float _groundChekDistance = 0.1F;
+    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private Vector3 _groundCheckPositionDelta;
+    [SerializeField] private float _groundCheckRadius;
 
     private Vector2 _direction;
     private Rigidbody2D _body;
@@ -39,8 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsGrounded()
     {
-        RaycastHit2D[] results = new RaycastHit2D[1];
-        int collisionCount = _body.Cast(Vector2.down, _groundCheckFilter, results, _groundChekDistance);
-        return collisionCount != 0;
+        var hit = Physics2D.CircleCast(transform.position + _groundCheckPositionDelta, _groundCheckRadius, Vector2.down, 0, _groundLayer);
+        return hit.collider != null;
     }
 }
