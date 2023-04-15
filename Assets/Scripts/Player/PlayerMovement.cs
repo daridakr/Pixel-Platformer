@@ -5,9 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
-    [SerializeField] private LayerMask _groundLayer;
-    [SerializeField] private Vector3 _groundCheckPositionDelta;
-    [SerializeField] private float _groundCheckRadius;
+    [SerializeField] private LayerCheck _groundCheck;
 
     private Vector2 _direction;
     private Rigidbody2D _body;
@@ -29,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
         bool isJumping = _direction.y > 0;
         if (isJumping && IsGrounded())
         {
-            _body.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            Jump();
         }
     }
 
@@ -38,9 +36,13 @@ public class PlayerMovement : MonoBehaviour
         _body.velocity = new Vector2(_direction.x * _speed, _body.velocity.y);
     }
 
+    private void Jump()
+    {
+        _body.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+    }
+
     private bool IsGrounded()
     {
-        var hit = Physics2D.CircleCast(transform.position + _groundCheckPositionDelta, _groundCheckRadius, Vector2.down, 0, _groundLayer);
-        return hit.collider != null;
+        return _groundCheck.IsTouching;
     }
 }
