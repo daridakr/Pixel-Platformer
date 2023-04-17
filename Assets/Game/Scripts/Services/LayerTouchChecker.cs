@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class LayerCheck : MonoBehaviour
+public class LayerTouchChecker : MonoBehaviour
 {
     [SerializeField] LayerMask _layer;
 

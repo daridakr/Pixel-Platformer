@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpForce;
-    [SerializeField] private LayerCheck _groundCheck;
+    [SerializeField] private LayerTouchChecker _groundCheck;
 
     private Vector2 _direction;
     private Rigidbody2D _body;
