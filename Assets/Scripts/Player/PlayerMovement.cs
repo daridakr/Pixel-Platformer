@@ -23,12 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-
-        bool isJumping = _direction.y > 0;
-        if (isJumping && IsGrounded())
-        {
-            Jump();
-        }
+        Jump(_direction.y > 0);
     }
 
     private void Move()
@@ -36,9 +31,19 @@ public class PlayerMovement : MonoBehaviour
         _body.velocity = new Vector2(_direction.x * _speed, _body.velocity.y);
     }
 
-    private void Jump()
+    private void Jump(bool isJumping)
     {
-        _body.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        if (isJumping)
+        {
+            if (IsGrounded())
+            {
+                _body.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+            }
+        }
+        else if (_body.velocity.y > 0)
+        {
+            _body.velocity = new Vector2(_body.velocity.x, _body.velocity.y * 0.5F);
+        }
     }
 
     private bool IsGrounded()
