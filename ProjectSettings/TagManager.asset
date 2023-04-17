@@ -50,6 +50,6 @@ TagManager:
   - name: Ground
     uniqueID: 4080344477
     locked: 0
-  - name: NPC
+  - name: Humanoids
     uniqueID: 1815276953
     locked: 0
