@@ -13,4 +13,9 @@ public class TriggerEntryHandler : MonoBehaviour
             _action?.Invoke();
         }
     }
+
+    public void DestroyTrigger()
+    {
+        Destroy(gameObject);
+    }
 }
